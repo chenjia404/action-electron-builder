@@ -1,4 +1,4 @@
-# Electron Builder Action
+# Motrix Electron Builder Action
 
 **GitHub Action for building and releasing Electron apps**
 

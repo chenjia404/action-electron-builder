@@ -1,5 +1,5 @@
-name: Electron Builder Action
-author: Samuel Meuli
+name: Motrix Electron Builder Action
+author: Dr_rOot
 description: GitHub Action for building and releasing Electron apps
 
 inputs:
