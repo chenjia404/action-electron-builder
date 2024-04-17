@@ -106,7 +106,7 @@ const runAction = () => {
 	setEnv("ADBLOCK", true);
 
 	log(`Installing dependencies using ${useNpm ? "NPM" : "pnpm"}…`);
-	run(useNpm ? "npm install" : "pnpm", pkgRoot);
+	run(useNpm ? "npm install" : "pnpm i", pkgRoot);
 
 	// Run NPM build script if it exists
 	if (skipBuild) {
@@ -114,13 +114,13 @@ const runAction = () => {
 	} else {
 		log("Running the build script…");
 		if (useNpm) {
-			run(`npm run ${buildScriptName} --if-present`, pkgRoot);
+			run(`npm ${buildScriptName} --if-present`, pkgRoot);
 		} else {
 			// TODO: Use `yarn run ${buildScriptName} --if-present` once supported
 			// https://github.com/yarnpkg/yarn/issues/6894
 			const pkgJson = JSON.parse(readFileSync(pkgJsonPath, "utf8"));
 			if (pkgJson.scripts && pkgJson.scripts[buildScriptName]) {
-				run(`pnpm run ${buildScriptName}`, pkgRoot);
+				run(`pnpm ${buildScriptName}`, pkgRoot);
 			}
 		}
 	}
@@ -130,7 +130,7 @@ const runAction = () => {
 	for (let i = 0; i < maxAttempts; i += 1) {
 		try {
 			run(
-				`${useNpm ? "npx --no-install" : "pnpm run"} ${cmd} --${platform} ${
+				`${useNpm ? "npx --no-install" : "pnpm"} ${cmd} --${platform} ${
 					release ? "--publish always" : ""
 				} ${args}`,
 				appRoot,
